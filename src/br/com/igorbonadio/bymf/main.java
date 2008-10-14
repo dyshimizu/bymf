@@ -21,24 +21,34 @@
 
 package br.com.igorbonadio.bymf;
 
+import br.com.igorbonadio.bymf.files.BymfMP3File;
+import br.com.igorbonadio.bymf.files.BymfMediaFile;
 import br.com.igorbonadio.bymf.files.Finder;
-import br.com.igorbonadio.bymf.files.InvalidDirectoryException;
+import java.io.File;
 
 public class main {
 
     public static void main(String[] args) {
         
         try {
-            Finder f = new Finder("d:/mp3/");
-            
-            int i=0;
+            Finder f = new Finder("d:/testebymf/");
+            File file;
+            BymfMediaFile bmf;
             while(f.next()){
-                System.out.println(f.getNextFile().getName());
-                i++;
+                file = f.getNextFile();
+                bmf = new BymfMP3File(file);
+                System.out.println(bmf.getArtist());
+                System.out.println(bmf.getAlbum());
+                System.out.println(bmf.getComment());
+                System.out.println(bmf.getGenre());
+                System.out.println(bmf.getTitle());
+                System.out.println(bmf.getTotalTracks());
+                System.out.println(bmf.getTrackNumber());
+                System.out.println(bmf.getYear());
+                System.out.println();
             }
-            System.out.println(i);
             
-        } catch (InvalidDirectoryException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }  
     }
