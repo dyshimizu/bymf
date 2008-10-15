@@ -66,26 +66,30 @@ public class Finder {
      * @see     Finder#getNextFile() 
      */
     public boolean next(){
-        File f;
-        
-        f = stack.pop();
-        
-        while(f.isDirectory() && f != file){
-            File files[] = f.listFiles();
-            
-            int i;
-            for(i=0; i<files.length; i++){
-                stack.push(files[i]);
-            }
+        if(!stack.empty()){
+            File f;
+
             f = stack.pop();
-        }
-        
-        nextFile = f;
-        
-        if(f.isDirectory()){
-            return false;
+
+            while(f.isDirectory() && f != file){
+                File files[] = f.listFiles();
+
+                int i;
+                for(i=0; i<files.length; i++){
+                    stack.push(files[i]);
+                }
+                f = stack.pop();
+            }
+
+            nextFile = f;
+
+            if(f.isDirectory()){
+                return false;
+            }else{
+                return true;
+            }
         }else{
-            return true;
+            return false;
         }
     }
     
