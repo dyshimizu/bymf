@@ -21,36 +21,28 @@
 
 package br.com.igorbonadio.bymf;
 
-import br.com.igorbonadio.bymf.files.BymfMP3File;
-import br.com.igorbonadio.bymf.files.BymfMediaFile;
-import br.com.igorbonadio.bymf.files.Finder;
-import java.io.File;
+import br.com.igorbonadio.bymf.db.Database;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class main {
 
     public static void main(String[] args) {
         
+        Database database = new Database("dbTeste");
         try {
-            Finder f = new Finder("d:/testebymf/");
-            File file;
-            BymfMediaFile bmf;
-            while(f.next()){
-                file = f.getNextFile();
-                bmf = new BymfMP3File(file);
-                System.out.println(bmf.getArtist());
-                System.out.println(bmf.getAlbum());
-                System.out.println(bmf.getComment());
-                System.out.println(bmf.getGenre());
-                System.out.println(bmf.getTitle());
-                System.out.println(bmf.getTotalTracks());
-                System.out.println(bmf.getTrackNumber());
-                System.out.println(bmf.getYear());
-                System.out.println();
-            }
             
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }  
+            database.connect();
+            //database.createTables();
+            database.disconnect();
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
 }
