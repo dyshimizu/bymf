@@ -35,25 +35,41 @@ import java.sql.Statement;
  */
 public class Database {
     
-    private String driver = "org.apache.derby.jdbc.EmbeddedDriver"; 
-    private String db;
-    private Connection conn;
-    private Statement statement;
-    
+    /**
+     * Construtor
+     * 
+     * @param   db    path do banco de dados a ser criado
+     */
     public Database(String db){
         this.db = db;
     }
     
+    /**
+     * Conectar o banco de dados. Se o banco não existir, este será criado.
+     * 
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     */
     public void connect() throws ClassNotFoundException, SQLException{
         Class.forName(driver); 
         conn = DriverManager.getConnection("jdbc:derby:"+db+";create=true");
         statement = conn.createStatement();
     }
     
+    /**
+     * Disconecta o banco de dados.
+     * 
+     * @throws java.sql.SQLException
+     */
     public void disconnect() throws SQLException{
         conn.close();
     }
     
+    /**
+     * Cria todas as tabelas necessárias.
+     * 
+     * @throws java.sql.SQLException
+     */
     public void createTables() throws SQLException{
         createTableAlbums();
         createTableArtists();
@@ -61,6 +77,11 @@ public class Database {
         createTableMusics();
     }
     
+    /**
+     * Destrói todas as tabelas.
+     * 
+     * @throws java.sql.SQLException
+     */
     public void dropTables() throws SQLException{
         dropTableAlbums();
         dropTableArtists();
@@ -145,5 +166,10 @@ public class Database {
     public void executeUpdate(String sql) throws SQLException{
         statement.executeUpdate(sql);
     }
+    
+    private String driver = "org.apache.derby.jdbc.EmbeddedDriver"; 
+    private String db;
+    private Connection conn;
+    private Statement statement;
     
 }
