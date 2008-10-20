@@ -51,9 +51,8 @@ public class Model {
      *         caso contrário.
      * @throws java.sql.SQLException
      */
-    public boolean find() throws SQLException{
+    public void find() throws SQLException{
         rs = database.executeQuery("SELECT * FROM "+tableName);
-        return rs.first();
     }
     
     /**
@@ -64,9 +63,8 @@ public class Model {
      *         caso contrário.
      * @throws java.sql.SQLException
      */
-    public boolean find(int id) throws SQLException{
+    public void find(int id) throws SQLException{
         rs = database.executeQuery("SELECT * FROM "+tableName+" where id = "+id);
-        return rs.first();
     }
     
     /**
@@ -77,9 +75,31 @@ public class Model {
      *         caso contrário.
      * @throws java.sql.SQLException
      */
-    public boolean find(String condition) throws SQLException{
+    public void find(String condition) throws SQLException{
         rs = database.executeQuery("SELECT * FROM "+tableName+" where "+condition);
-        return rs.first();
+    }
+    
+    /**
+     * Atualiza os campos de um certo resgistro identificado por id
+     * 
+     * @param id identificação do registro a ser atualizado
+     * @param values valores a serem atualizado separados por virgula.
+     *               Exemplo: "campo1 = valor1, campo2 = valor2"
+     * @throws java.sql.SQLException
+     */
+    public void update(int id, String values) throws SQLException{
+        database.executeUpdate("UPDATE "+tableName+" SET "+values+" WHERE id = "+id);
+    }
+    
+    /**
+     * Salva novo registro no banco de dados
+     * 
+     * @param fields campos a serem armazenados. Exemplo: campo1, campo2, campo3
+     * @param values valores correspondentes ao campos já listados. Exempo: valor1, valor2, valor3
+     * @throws java.sql.SQLException
+     */
+    public void save(String fields, String values) throws SQLException{
+        database.executeUpdate("INSERT INTO "+tableName+" ("+fields+") VALUES ("+values+")");
     }
     
     /**

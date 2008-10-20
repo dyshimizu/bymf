@@ -83,10 +83,10 @@ public class Database {
      * @throws java.sql.SQLException
      */
     public void dropTables() throws SQLException{
+        dropTableMusics();
         dropTableAlbums();
         dropTableArtists();
         dropTableGenres();
-        dropTableMusics();
     }
     
     private void createTableMusics() throws SQLException{
@@ -146,12 +146,12 @@ public class Database {
     }
     
     private void dropTableArtists() throws SQLException{
-        String sql = "CREATE TABLE artists";
+        String sql = "DROP TABLE artists";
         execute(sql);
     }
     
     private void dropTableGenres() throws SQLException{
-        String sql = "CREATE TABLE genres";
+        String sql = "DROP TABLE genres";
         execute(sql);
     }
     
