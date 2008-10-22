@@ -28,7 +28,8 @@ import java.sql.SQLException;
 /**
  * Modelo responsável por buscar e salvar no banco de dados.
  * 
- * @author Igor
+ * @author Ígor Bonadio
+ * @version %I%, %G%
  */
 public class Model {
     
@@ -47,8 +48,6 @@ public class Model {
     /**
      * Busca todos as ocorrências da tabela representada pelo modelo.
      * 
-     * @return <code>ture</code> se houver uma ocorrência, e <code>false</code>
-     *         caso contrário.
      * @throws java.sql.SQLException
      */
     public void find() throws SQLException{
@@ -59,8 +58,6 @@ public class Model {
      * Busca a ocorrência cujo id é passado por parâmetro.
      * 
      * @param id id da ocorrência a ser buscada
-     * @return <code>ture</code> se houver uma ocorrência, e <code>false</code>
-     *         caso contrário.
      * @throws java.sql.SQLException
      */
     public void find(int id) throws SQLException{
@@ -71,8 +68,6 @@ public class Model {
      * Busca as ocorrências cuja condição é passada por parâmentro.
      * 
      * @param condition condição de busca.
-     * @return <code>ture</code> se houver uma ocorrência, e <code>false</code>
-     *         caso contrário.
      * @throws java.sql.SQLException
      */
     public void find(String condition) throws SQLException{
@@ -107,7 +102,7 @@ public class Model {
      * por parâmetro.
      * 
      * @param name nome da coluna na tabela
-     * @return
+     * @return int
      * @throws java.sql.SQLException
      */
     public int getInt(String name) throws SQLException{
@@ -119,7 +114,7 @@ public class Model {
      * por parâmetro.
      * 
      * @param name nome da coluna na tabela
-     * @return
+     * @return string
      * @throws java.sql.SQLException
      */
     public String getString(String name) throws SQLException{
@@ -131,7 +126,7 @@ public class Model {
      * parâmento.
      * 
      * @param name nome da coluna na tabela
-     * @return
+     * @return clob
      * @throws java.sql.SQLException
      */
     public Clob getClob(String name) throws SQLException{
@@ -158,28 +153,6 @@ public class Model {
      */
     public boolean previous() throws SQLException{
         return rs.previous();
-    }
-    
-    /**
-     * Cola o ponteiro de ocorrências na primeira.
-     * 
-     * @return <code>true</code> se houver uma, e
-     *         <code>false</code> se não houver.
-     * @throws java.sql.SQLException
-     */
-    public boolean first() throws SQLException{
-        return rs.first();
-    }
-    
-    /**
-     * Cola o ponteiro de ocorrências na última.
-     * 
-     * @return <code>true</code> se houver uma, e
-     *         <code>false</code> se não houver.
-     * @throws java.sql.SQLException
-     */
-    public boolean last() throws SQLException{
-        return rs.last();
     }
     
     private Database database;

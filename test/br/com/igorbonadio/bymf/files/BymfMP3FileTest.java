@@ -31,6 +31,7 @@ import static org.junit.Assert.*;
  * Teste realizado utilizando JUnit 4.1
  * 
  * @author Ígor Bonadio
+ * @version %I%, %G%
  */
 public class BymfMP3FileTest extends TestCase {
 

@@ -27,7 +27,8 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Igor
+ * @author Ígor Bonadio
+ * @version %I%, %G%
  */
 public class ModelTest extends TestCase {
     
