@@ -212,7 +212,7 @@ public class Album extends Model {
     }
     
     /**
-     * Aponta para o próximo Album
+     * Aponta para o Album anterior
      * 
      * @return <code>true</code> se houver uma próxima ocorrência, e
      *         <code>false</code> se não houver.
