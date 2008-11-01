@@ -26,25 +26,27 @@ import br.com.igorbonadio.bymf.db.Model;
 import java.sql.SQLException;
 
 /**
- * Classe do modelo da tabela Albums
- * 
+ * Classe do modelo da tabela Musics
+ *
  * @author Ígor Bonadio
  * @version %I%, %G%
  */
-public class Album extends Model {
+public class Music extends Model {
     
     /**
      * Construtor
+     * 
      * @param database
      */
-    public Album(Database database){
-        super(database, "albums");
+    public Music(Database database){
+        super(database, "musics");
+        this.database = database;
     }
     
     /**
-     * Procura albums por títlulo.
+     * Procura músicas por título
      * 
-     * @param title título do album
+     * @param title título da música
      * @throws java.sql.SQLException
      */
     public void findByTitle(String title) throws SQLException{
@@ -52,17 +54,7 @@ public class Album extends Model {
     }
     
     /**
-     * Procura albums por data de lançamento
-     * 
-     * @param year ano de lançamento
-     * @throws java.sql.SQLException
-     */
-    public void findByReleasedAt(int year) throws SQLException{
-        find("released_at = "+year);
-    }
-    
-    /**
-     * Retorna id do album corrente
+     * Retorna id da música corrente
      * 
      * @return id
      * @throws java.sql.SQLException
@@ -72,66 +64,97 @@ public class Album extends Model {
     }
     
     /**
-     * Retorna título do album corrente
+     * Retorna título da música corrent
      * 
      * @return título
-     * @throws java.sql.SQLException
      */
     public String getTitle(){
         return title;
     }
     
     /**
-     * Retorna número total de faixas do album corrent
+     * Retorna o número da faixa da música corrente
      * 
-     * @return número total de faixas
-     * @throws java.sql.SQLException
+     * @return número da faixa
      */
-    public int getTotalTracks(){
-        return totalTracks;
+    public int getTrackNumber(){
+        return track_number;
     }
     
     /**
-     * Retorna data de lançamento do album corrente
+     * Retorna o id do artista da música corrente
      * 
-     * @return ano de lançamento
-     * @throws java.sql.SQLException
+     * @return id do artista
      */
-    public int getReleasedAt(){
-        return releasedAt;
+    public int getArtistId(){
+        return artist_id;
     }
     
     /**
-     * Atritui ao album corrente, ou a um novo album, um novo título
+     * Retorna id do álbum da música corrente
      * 
-     * @param title titulo
+     * @return id do álbum
+     */
+    public int getAlbumId(){
+        return album_id;
+    }
+    
+    /**
+     * Retorna id do gênero da música corrente
+     * 
+     * @return id do gênero
+     */
+    public int getGenreId(){
+        return genre_id;
+    }
+    
+    /**
+     * Atribui à música corrente, ou à uma nova música, um novo título
+     * 
+     * @param title título
      */
     public void setTitle(String title){
         this.title = title;
     }
     
     /**
-     * Atritui ao album corrente, ou a um novo album, um novo número total de
-     * faixas
+     * Atribui à música corrente, ou à uma nova música, o número da faixa
      * 
-     * @param totalTracks numero total de faixas
+     * @param track_number número da faixa
      */
-    public void setTotalTracks(int totalTracks){
-        this.totalTracks = totalTracks;
+    public void setTrackNumber(int track_number){
+        this.track_number = track_number;
     }
     
     /**
-     * Atritui ao album corrente, ou a um novo album, uma nova data de 
-     * lançamento
+     * Atribui à música corrente, ou à uma nova música, um id de artista
      * 
-     * @param releasedAt ano de lançamento
+     * @param artist_id id do artista
      */
-    public void setReleasedAt(int releasedAt){
-        this.releasedAt = releasedAt;
+    public void setArtistId(int artist_id){
+        this.artist_id = artist_id;
     }
     
     /**
-     * salva um novo disco
+     * Atribui à música corrente, ou à uma nova música, um id de álbum
+     * 
+     * @param album_id id do álbum
+     */
+    public void setAlbumId(int album_id){
+        this.album_id = album_id;
+    }
+    
+    /**
+     * Atribui à música corrente, ou à uma nova música, um id de gênero
+     * 
+     * @param genre_id id do gênero
+     */
+    public void setGenreId(int genre_id){
+        this.genre_id = genre_id;
+    }
+    
+    /**
+     * salva uma nova música
      * 
      * @throws java.sql.SQLException
      */
@@ -144,14 +167,24 @@ public class Album extends Model {
             values += "'"+title+"',";
             ok = true;
         }
-        if(totalTracks != -1){
-            fields += "total_tracks,";
-            values += totalTracks+",";
+        if(track_number != -1){
+            fields += "track_number,";
+            values += track_number+",";
             ok = true;
         }
-        if(releasedAt != -1){
-            fields += "released_at,";
-            values += releasedAt+",";
+        if(artist_id != -1){
+            fields += "artist_id,";
+            values += artist_id+",";
+            ok = true;
+        }
+        if(album_id != -1){
+            fields += "album_id,";
+            values += album_id+",";
+            ok = true;
+        }
+        if(genre_id != -1){
+            fields += "genre_id,";
+            values += genre_id+",";
             ok = true;
         }
         if(ok){
@@ -164,36 +197,44 @@ public class Album extends Model {
     }
     
     /**
-     * Faz update de um disco já existe e corrente.
+     * Faz update de uma música já existente e corrente
      * 
      * @throws java.sql.SQLException
      */
     public void update() throws SQLException{
-        int id = getId();
         boolean ok = false;
+        int id = getId();
         String values = "";
         if(title != null){
             values += "title='"+title+"',";
             ok = true;
         }
-        if(totalTracks != -1){
-            values += "total_tracks="+totalTracks+",";
+        if(track_number != -1 ){
+            values += "track_number="+track_number+",";
             ok = true;
         }
-        if(releasedAt != -1){
-            values += "released_at="+releasedAt+",";
+        if(artist_id != -1){
+            values += "artist_id="+artist_id+",";
+            ok = true;
+        }
+        if(album_id != -1){
+            values += "album_id="+album_id+",";
+            ok = true;
+        }
+        if(genre_id != -1){
+            values += "genre_id="+genre_id+",";
             ok = true;
         }
         if(ok){
             values = values.substring(0, values.length()-1);
             update(id, values);
         }else{
-            throw new SQLException("the new album has no changes");
+            throw new SQLException("the new music has no changes");
         }
     }
     
     /**
-     * Aponta para o próximo Album
+     * Aponta para a próxima Música
      * 
      * @return <code>true</code> se houver uma próxima ocorrência, e
      *         <code>false</code> se não houver.
@@ -205,15 +246,17 @@ public class Album extends Model {
         boolean n = super.next();
         if(n){
             title = getString("title");
-            totalTracks = getInt("total_tracks");
-            releasedAt = getInt("released_at");
+            track_number = getInt("track_number");
+            artist_id = getInt("artist_id");
+            album_id = getInt("album_id");
+            genre_id = getInt("genre_id");
         }
         
         return n;
     }
     
     /**
-     * Aponta para o Album anterior
+     * Aponta para a Música anterior
      * 
      * @return <code>true</code> se houver uma próxima ocorrência, e
      *         <code>false</code> se não houver.
@@ -225,8 +268,10 @@ public class Album extends Model {
         boolean n = super.previous();
         if(n){
             title = getString("title");
-            totalTracks = getInt("total_tracks");
-            releasedAt = getInt("released_at");
+            track_number = getInt("track_number");
+            artist_id = getInt("artist_id");
+            album_id = getInt("album_id");
+            genre_id = getInt("genre_id");
         }
         
         return n;
@@ -234,12 +279,16 @@ public class Album extends Model {
     
     private void discardChanges(){
         title = null;
-        totalTracks = -1;
-        releasedAt = -1;
+        track_number = -1;
+        artist_id = -1;
+        album_id = -1;
+        genre_id = -1;
     }
-    
+
+    private Database database;
     private String title = null;
-    private int totalTracks = -1;
-    private int releasedAt = -1;
-    
+    private int track_number = -1;
+    private int artist_id = -1;
+    private int album_id = -1;
+    private int genre_id = -1;
 }

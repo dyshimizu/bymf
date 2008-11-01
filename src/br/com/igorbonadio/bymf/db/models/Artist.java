@@ -26,6 +26,7 @@ import br.com.igorbonadio.bymf.db.Model;
 import java.sql.SQLException;
 
 /**
+ * Classe do modelo da tabela Artists
  *
  * @author Ígor Bonadio
  * @version %I%, %G%
@@ -67,7 +68,7 @@ public class Artist extends Model {
      * @return nome
      * @throws java.sql.SQLException
      */
-    public String getName() throws SQLException{
+    public String getName(){
         return name;
     }
     

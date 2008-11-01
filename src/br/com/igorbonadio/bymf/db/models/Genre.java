@@ -26,15 +26,28 @@ import br.com.igorbonadio.bymf.db.Model;
 import java.sql.SQLException;
 
 /**
+ * Classe do modelo da tabela Genres
  *
- * @author Igor
+ * @author Ígor Bonadio
+ * @version %I%, %G%
  */
 public class Genre extends Model {
     
+    /**
+     * Construtor
+     * 
+     * @param database
+     */
     public Genre(Database database){
         super(database, "genres");
     }
     
+    /**
+     * Procura genêro por nome
+     * 
+     * @param name
+     * @throws java.sql.SQLException
+     */
     public void findByName(String name) throws SQLException{
         find("name = '"+ name+"'");
     }
@@ -55,7 +68,7 @@ public class Genre extends Model {
      * @return nome
      * @throws java.sql.SQLException
      */
-    public String getName() throws SQLException{
+    public String getName(){
         return name;
     }
     
