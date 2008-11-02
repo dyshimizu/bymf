@@ -54,6 +54,36 @@ public class Music extends Model {
     }
     
     /**
+     * Procura músicas por artista
+     * 
+     * @param artistId
+     * @throws java.sql.SQLException
+     */
+    public void findByArtistId(int artistId) throws SQLException{
+        find("artist_id = "+ artistId+"");
+    }
+    
+    /**
+     * Procura músicas por álbum
+     * 
+     * @param albumId id do album
+     * @throws java.sql.SQLException
+     */
+    public void findByAlbumId(int albumId) throws SQLException{
+        find("album_id = "+ albumId+"");
+    }
+    
+    /**
+     * Procura  músiicas por gênero
+     * 
+     * @param genreId id do genero
+     * @throws java.sql.SQLException
+     */
+    public void findByGenreId(int genreId) throws SQLException{
+        find("genre_id = "+ genreId+"");
+    }
+    
+    /**
      * Retorna id da música corrente
      * 
      * @return id

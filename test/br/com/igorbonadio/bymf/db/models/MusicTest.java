@@ -61,7 +61,116 @@ public class MusicTest extends TestCase {
         Music music = new Music(database);
         music.findByTitle("musica1");
         
-         boolean next = music.next();
+        boolean next = music.next();
+        assertEquals(true, next);
+        
+        next = music.next();
+        assertEquals(false, next);
+        
+        database.dropTables();
+        database.disconnect();
+    }
+    
+    /**
+     * Test of findByArtistId method, of class Music.
+     */
+    @Test
+    public void testFindByArtistId() throws Exception {
+        Database database = new Database("dbTest");
+        database.connect();
+        database.createTables();
+        database.execute("INSERT INTO albums (title,total_tracks,released_at) VALUES ('Album1',11,2001)");
+        database.execute("INSERT INTO albums (title,total_tracks,released_at) VALUES ('Album2',12,2002)");
+        database.execute("INSERT INTO albums (title,total_tracks,released_at) VALUES ('Album3',13,2003)");
+        database.execute("INSERT INTO artists (name) VALUES ('Artista1')");
+        database.execute("INSERT INTO genres (name) VALUES ('Genero1')");
+        database.execute("INSERT INTO genres (name) VALUES ('Genero2')");
+        database.execute("INSERT INTO genres (name) VALUES ('Genero3')");
+        database.execute("INSERT INTO musics (title,track_number,comment,artist_id,album_id,genre_id) VALUES ('musica1',11,'oi1',1,1,1)");
+        database.execute("INSERT INTO musics (title,track_number,comment,artist_id,album_id,genre_id) VALUES ('musica2',12,'oi2',1,2,2)");
+        database.execute("INSERT INTO musics (title,track_number,comment,artist_id,album_id,genre_id) VALUES ('musica3',13,'oi3',1,3,3)");
+        
+        Music music = new Music(database);
+        music.findByArtistId(1);
+        
+        boolean next = music.next();
+        assertEquals(true, next);
+        
+        next = music.next();
+        assertEquals(true, next);
+        
+        next = music.next();
+        assertEquals(true, next);
+        
+        next = music.next();
+        assertEquals(false, next);
+        
+        database.dropTables();
+        database.disconnect();
+    }
+    
+    /**
+     * Test of findByAlbumId method, of class Music.
+     */
+    @Test
+    public void testFindByAlbumId() throws Exception {
+        Database database = new Database("dbTest");
+        database.connect();
+        database.createTables();
+        database.execute("INSERT INTO albums (title,total_tracks,released_at) VALUES ('Album1',11,2001)");
+        database.execute("INSERT INTO albums (title,total_tracks,released_at) VALUES ('Album2',12,2002)");
+        database.execute("INSERT INTO artists (name) VALUES ('Artista1')");
+        database.execute("INSERT INTO artists (name) VALUES ('Artista2')");
+        database.execute("INSERT INTO artists (name) VALUES ('Artista3')");
+        database.execute("INSERT INTO genres (name) VALUES ('Genero1')");
+        database.execute("INSERT INTO genres (name) VALUES ('Genero2')");
+        database.execute("INSERT INTO genres (name) VALUES ('Genero3')");
+        database.execute("INSERT INTO musics (title,track_number,comment,artist_id,album_id,genre_id) VALUES ('musica1',11,'oi1',1,1,1)");
+        database.execute("INSERT INTO musics (title,track_number,comment,artist_id,album_id,genre_id) VALUES ('musica2',12,'oi2',1,1,2)");
+        database.execute("INSERT INTO musics (title,track_number,comment,artist_id,album_id,genre_id) VALUES ('musica3',13,'oi3',1,2,3)");
+        
+        Music music = new Music(database);
+        music.findByAlbumId(1);
+        
+        boolean next = music.next();
+        assertEquals(true, next);
+        
+        next = music.next();
+        assertEquals(true, next);
+        
+        next = music.next();
+        assertEquals(false, next);
+        
+        database.dropTables();
+        database.disconnect();
+    }
+    
+        /**
+     * Test of findByGenreId method, of class Music.
+     */
+    @Test
+    public void testFindByGenreId() throws Exception {
+        Database database = new Database("dbTest");
+        database.connect();
+        database.createTables();
+        database.execute("INSERT INTO albums (title,total_tracks,released_at) VALUES ('Album1',11,2001)");
+        database.execute("INSERT INTO albums (title,total_tracks,released_at) VALUES ('Album2',12,2002)");
+        database.execute("INSERT INTO artists (name) VALUES ('Artista1')");
+        database.execute("INSERT INTO artists (name) VALUES ('Artista2')");
+        database.execute("INSERT INTO artists (name) VALUES ('Artista3')");
+        database.execute("INSERT INTO genres (name) VALUES ('Genero1')");
+        database.execute("INSERT INTO genres (name) VALUES ('Genero2')");
+        database.execute("INSERT INTO musics (title,track_number,comment,artist_id,album_id,genre_id) VALUES ('musica1',11,'oi1',1,1,1)");
+        database.execute("INSERT INTO musics (title,track_number,comment,artist_id,album_id,genre_id) VALUES ('musica2',12,'oi2',1,1,2)");
+        database.execute("INSERT INTO musics (title,track_number,comment,artist_id,album_id,genre_id) VALUES ('musica3',13,'oi3',1,2,1)");
+        
+        Music music = new Music(database);
+        music.findByGenreId(1);
+        
+        boolean next = music.next();
+        assertEquals(true, next);
+        
+        next = music.next();
         assertEquals(true, next);
         
         next = music.next();
@@ -95,7 +204,7 @@ public class MusicTest extends TestCase {
         Music music = new Music(database);
         music.find();
         
-         boolean next = music.next();
+        boolean next = music.next();
         assertEquals(true, next);
         assertEquals(1, music.getId());
         
